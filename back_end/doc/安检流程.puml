@@ -1,0 +1,27 @@
+@startuml
+actor worker #black
+participant 穿戴设备检测系统 as ca
+participant 酒精一体机 as ad
+participant 闸机 as gm
+participant 控制中心 as cc
+
+worker -> ca: 进入安检通道
+ca -> ca: 采集实时视频流
+ca -> ca: 图像处理，检测\n穿戴设备
+
+ca -> cc: 上报检测结果到控制系统
+
+worker -> ad: 进行酒精检测等
+ad -> ad: 本地人脸识别和\n酒精、温度检测
+ad -> cc: 上报检测结果到控制系统
+
+worker -> gm: 刷卡
+gm -> gm: 检测卡是否有效
+gm -> cc: 上报检测结果到控制系统
+
+cc -> cc: 根据最新上报的所有数据，\n判断是否开放闸机
+
+cc -> gm: 下达指令
+
+gm -> gm: 根据指定进行操作
+@enduml

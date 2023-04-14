@@ -1,0 +1,11 @@
+@startuml
+participant 控制中心 as cc
+participant 梅安森 as mas
+
+loop 定时获取最新的员工档案信息
+   cc -> mas: 请求获取完整的档案数据
+   mas <- cc: 返回所有的员工信息
+   cc -> cc: 解析+落库
+end
+
+@enduml

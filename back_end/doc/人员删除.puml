@@ -1,0 +1,20 @@
+@startuml
+actor admin #green
+participant 控制中心 as cc
+participant 酒精一体机 as ad
+
+admin -> cc: 删除员工信息
+admin <- cc: 删除成功
+
+cc <- cc: 更新员工信息\n的下发标记
+
+ad -> cc: 发送心跳
+ad <- cc: 回复消息，type = deleteRegisterMsg
+
+loop 逐条下发要删除的的用户数据
+   ad -> cc: 请求被删除的员工数据
+   ad <- cc: 返回员工信息
+   cc -> cc: 更新员工信息\n的下发标记
+end
+
+@enduml

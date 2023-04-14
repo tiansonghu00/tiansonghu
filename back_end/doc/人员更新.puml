@@ -1,0 +1,20 @@
+@startuml
+actor admin #green
+participant 控制中心 as cc
+participant 酒精一体机 as ad
+
+admin -> cc: 新增/更新员工信息
+admin <- cc: 新增/更新成功
+
+cc <- cc: 更新员工信息\n的下发标记
+
+ad -> cc: 发送心跳
+ad <- cc: 回复消息，type = registerMsg
+
+loop 逐条下发新增的用户数据
+   ad -> cc: 请求新员工数据
+   ad <- cc: 返回新员工信息
+   cc -> cc: 更新员工信息\n的下发标记
+end
+
+@enduml
